@@ -6,6 +6,7 @@ const SignUp = () => {
     const enteredPass=useRef();
     const enteredCpass=useRef();
     const [islogged, setIsLogged] = useState(false);
+    
     const handleSubmit=async(e)=>{
           e.preventDefault();
           if(enteredCpass.current.value!==enteredPass.current.value){
