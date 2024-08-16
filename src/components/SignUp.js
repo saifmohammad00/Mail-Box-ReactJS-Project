@@ -44,7 +44,7 @@ const SignUp = () => {
             const data=await res.json();
             if (islogged) {
                 token=data.idToken;
-                navigate("/welcome");
+                navigate("/ComposeMail");
                 return;
             }
             setIsLogged(true);
