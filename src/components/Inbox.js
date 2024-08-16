@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Button, Card, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-const Welcome=()=>{
+const Inbox=()=>{
     const [isTrue,setIsTrue]=useState(false);
     const [list,setList]=useState([]);
     const navigate=useNavigate();
@@ -29,7 +29,7 @@ const Welcome=()=>{
                 setList(array);
     
             }catch(error){
-                alert(error);
+                console(error);
             }
         }
         getData();
@@ -38,7 +38,7 @@ const Welcome=()=>{
         <h1>Welcome to Mail box</h1>
         <hr/>
         <Button variant="primary" type="button" onClick={handleCompose} className="m-3">Compose</Button>
-        <Button variant="primary" type="button" onClick={handleIndox}>Indox</Button>
+        <Button variant="primary" type="button" onClick={handleIndox}>Inbox</Button>
         {isTrue && <Container className="mt-3">
               {list.map(item=>{
                 return <Card key={item.id} className="p-3">
@@ -52,4 +52,4 @@ const Welcome=()=>{
             </Container>}
     </div>
 }
-export default Welcome;
+export default Inbox;

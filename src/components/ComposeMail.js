@@ -46,7 +46,7 @@ const ComposeMail = () => {
         }
     };
     const handleBack=()=>{
-        navigate("/Welcome");
+        navigate("/inbox");
     }
 
     return <Container>
