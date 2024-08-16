@@ -3,12 +3,14 @@ import { Container, Form, Button, Card, Alert } from "react-bootstrap";
 import { Editor } from "react-draft-wysiwyg";
 import { EditorState, convertToRaw } from "draft-js";
 import "../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const ComposeMail = () => {
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
     const emailRef = useRef(null);
     const subjectRef = useRef(null);
     const [success,setSuccess]=useState();
+    const navigate=useNavigate();
 
     const handleSend = async(e) => {
         e.preventDefault();
@@ -43,9 +45,15 @@ const ComposeMail = () => {
             alert(error.message);
         }
     };
+    const handleBack=()=>{
+        navigate("/Welcome");
+    }
 
-    return <div>
-        <h1>Welcome to your mail box!!!</h1>
+    return <Container>
+          <Container className="d-flex justify-content-between m-3">
+          <h1>Welcome to your mail box!!!</h1>
+          <Button variant="primary" onClick={handleBack}> Back </Button>
+          </Container>
         <hr />
         <Container>
             
@@ -93,6 +101,6 @@ const ComposeMail = () => {
                 </Card.Body>
             </Card>
         </Container>
-    </div>
+    </Container>
 }
 export default ComposeMail;
