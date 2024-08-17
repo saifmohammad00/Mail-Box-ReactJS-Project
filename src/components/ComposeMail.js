@@ -16,6 +16,7 @@ const ComposeMail = () => {
         e.preventDefault();
         const email = emailRef.current.value;
         const subject = subjectRef.current.value;
+        const isRead=false;
 
         const contentState = editorState.getCurrentContent();
         const rawContent = convertToRaw(contentState);
@@ -23,6 +24,7 @@ const ComposeMail = () => {
         const formData = {
             email,
             subject,
+            isRead,
             content: JSON.stringify(rawContent),
         };
         try{
