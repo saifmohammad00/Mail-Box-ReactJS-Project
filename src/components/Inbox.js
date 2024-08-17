@@ -60,13 +60,29 @@ const Inbox = () => {
             }
         }
         getData();
-    }, []);
+    }, [dispatch]);
+    const handleDelete=async(event,item)=>{
+        event.stopPropagation();
+          try{
+            const res=await fetch(`https://react-auth-a54ec-default-rtdb.firebaseio.com/Emails/${item.id}.json`,{
+                method:"DELETE",
+            })
+            if(!res.ok){
+                throw new Error("unable to delete")
+            }
+            dispatch(listActions.deleteItem(item));
+          }catch(error){
+            console.log(error);
+          }
+    }
     return <div>
         <h1>Welcome to Mail box</h1>
         <hr />
         <Button variant="primary" type="button" onClick={handleCompose} className="m-3">Compose</Button>
         <Button variant="primary" type="button" onClick={handleIndox}>Inbox {isRead ? `unread (${isRead})` : ""}</Button>
         {showInbox && <Container className="border border-primary border-3 p-3" style={{width:"60%"}}>
+            <h1>Mails</h1>
+            <hr/>
             {listMails.map(item => {
                 return <div key={item.id}>
                 <Card
@@ -82,6 +98,7 @@ const Inbox = () => {
                             <strong>{item.email}</strong>
                         </div>
                         <strong>{item.subject}</strong>
+                        <Button type="button" onClick={(event)=>handleDelete(event,item)}>Delete</Button>
                     </Card.Body>
                 </Card>
                 {isTrue && selectedMail.id===item.id && 
