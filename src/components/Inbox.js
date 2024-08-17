@@ -10,8 +10,8 @@ const Inbox = () => {
     const [selectedMail, setSelectedMail] = useState(null);
     const [showInbox, setShowInbox] = useState(false);
     const [isTrue,setIsTrue]=useState(false);
-    const listMails = useSelector(state => state.listStore.mailItems);
-    const isRead = useSelector(state => state.listStore.isRead);
+    const listMails = useSelector(state => state.list.mailItems);
+    const isRead = useSelector(state => state.list.isRead);
 
     const navigate = useNavigate();
     const handleCompose = () => {
@@ -49,7 +49,6 @@ const Inbox = () => {
                 }
                 const data = await res.json();
                 let array = [];
-                console.log(data);
                 for (const key in data) {
                     array.push({ ...data[key], id: key });
                 }

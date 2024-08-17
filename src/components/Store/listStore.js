@@ -5,7 +5,7 @@ const initialState={
 }
 const listStore=createSlice({
     name:"listStore",
-    initialState,
+    initialState:initialState,
     reducers:{
         addItem(state,action){
             state.mailItems=action.payload;
