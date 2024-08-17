@@ -1,5 +1,5 @@
 import { convertFromRaw } from "draft-js";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Badge, Button, Card, Col, Container, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -40,27 +40,34 @@ const Inbox = () => {
             console.log(error);
         }
     }
-    useEffect(() => {
-        async function getData() {
-            try {
-                const res = await fetch('https://react-auth-a54ec-default-rtdb.firebaseio.com/Emails.json');
-                if (!res.ok) {
-                    throw new Error("Retrive Data failed");
-                }
-                const data = await res.json();
-                let array = [];
-                for (const key in data) {
-                    array.push({ ...data[key], id: key });
-                }
-                array.reverse();
-                dispatch(listActions.addItem(array));
-
-            } catch (error) {
-                console(error);
+    const fetchData = useCallback (async() => {
+        try {
+            const res = await fetch('https://react-auth-a54ec-default-rtdb.firebaseio.com/Emails.json');
+            if (!res.ok) {
+                throw new Error("Retrieve Data failed");
             }
+            const data = await res.json();
+            let array = [];
+            for (const key in data) {
+                array.push({ ...data[key], id: key });
+            }
+            array.reverse();
+            if (JSON.stringify(array) !== JSON.stringify(listMails)) {
+                dispatch(listActions.addItem(array));
+                console.log("hello");
+            }
+        } catch (error) {
+            console.error(error);
         }
-        getData();
-    }, [dispatch]);
+    },[dispatch,listMails]);
+
+    useEffect(() => {
+        fetchData(); // Fetch initial data
+        const intervalId = setInterval(fetchData, 2000); // Poll every 2 seconds
+
+        return () => clearInterval(intervalId); // Clean up interval on component unmount
+    }, [fetchData]);
+    
     const handleDelete = async (event, item) => {
         event.stopPropagation();
         try {
