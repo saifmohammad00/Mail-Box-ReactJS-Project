@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { findByText, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import Inbox from "./Inbox"
 import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
@@ -64,5 +64,15 @@ describe("renders Inbox component",()=>{
         });
         const Text=screen.getByText("Inbox");
         expect(Text).toBeInTheDocument();
+    })
+    test("renders delete button in inbox",async()=>{
+        rendering({});
+        fireEvent.click(screen.getByText("Inbox"));
+        expect((await screen.findAllByText("Delete")).length).toBeGreaterThan(0);
+    })
+    test("renders  mails text in inbox",async()=>{
+        rendering({});
+        fireEvent.click(screen.getByText("Inbox"));
+        expect((await screen.findByText("Mails"))).toBeInTheDocument();
     })
 })
