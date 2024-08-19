@@ -1,6 +1,8 @@
 import { useRef, useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { authActions } from "./Store/auth";
 
 const api = "";
 
@@ -11,6 +13,7 @@ const SignUp = () => {
     const enteredCpass = useRef(null);
     const [islogged, setIsLogged] = useState(false);
     const navigate = useNavigate();
+    const dispatch=useDispatch();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -44,6 +47,7 @@ const SignUp = () => {
             const data=await res.json();
             if (islogged) {
                 token=data.idToken;
+                dispatch(authActions.login());
                 navigate("/inbox");
                 return;
             }
@@ -80,7 +84,6 @@ const SignUp = () => {
                             {islogged ? "Login" : "Sign Up"}
                         </Button>
 
-                        {islogged && <Link to="/" className="mb-2">Forget Password?</Link>}
 
                     </Form>
                 </Card>

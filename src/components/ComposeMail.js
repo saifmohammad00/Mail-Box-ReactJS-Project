@@ -3,7 +3,7 @@ import { Container, Form, Button, Card, Alert } from "react-bootstrap";
 import { Editor } from "react-draft-wysiwyg";
 import { EditorState, convertToRaw } from "draft-js";
 import "../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ComposeMail = () => {
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -51,10 +51,10 @@ const ComposeMail = () => {
         navigate("/inbox");
     }
 
-    return <Container>
+    return <Container style={{marginTop:"5rem"}}>
           <Container className="d-flex justify-content-between m-3">
           <h1>Welcome to your mail box!!!</h1>
-          <Button variant="primary" onClick={handleBack}> Back </Button>
+          <Button type="button" onClick={handleBack}> Back </Button>
           </Container>
         <hr />
         <Container>

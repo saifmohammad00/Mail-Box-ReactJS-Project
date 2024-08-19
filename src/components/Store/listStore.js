@@ -12,10 +12,11 @@ const listStore = createSlice({
             state.isRead = action.payload.filter(mail => !mail.isRead).length;
         },
         markAsRead: (state, action) => {
-            state.mailItems = state.mailItems.map(mail =>
+            const updatedMailItems = state.mailItems.map(mail =>
                 mail.id === action.payload.id ? { ...mail, isRead: true } : mail
             );
-            state.isRead = state.mailItems.filter(mail => !mail.isRead).length;
+            state.mailItems = updatedMailItems;
+            state.isRead = updatedMailItems.filter(mail => !mail.isRead).length;
         },
         deleteItem(state,action){
             state.mailItems = state.mailItems.filter(mail =>mail.id !== action.payload.id);
