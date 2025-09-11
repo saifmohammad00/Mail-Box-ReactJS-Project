@@ -28,7 +28,7 @@ const ComposeMail = () => {
             content: JSON.stringify(rawContent),
         };
         try{
-          const res=await fetch('https://react-auth-a54ec-default-rtdb.firebaseio.com/Emails.json',{
+          const res=await fetch('https://mailbox00-ae4e6-default-rtdb.firebaseio.com/Emails.json',{
             method:"POST",
             body:JSON.stringify(formData),
             headers:{

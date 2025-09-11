@@ -26,7 +26,7 @@ const Inbox = () => {
         setIsTrue(!isTrue)
         const newItem = { ...item, isRead: true };
         try {
-            const res = await fetch(`https://react-auth-a54ec-default-rtdb.firebaseio.com/Emails/${item.id}.json`, {
+            const res = await fetch(`https://mailbox00-ae4e6-default-rtdb.firebaseio.com/Emails/${item.id}.json`, {
                 method: "PUT",
                 body: JSON.stringify(newItem),
                 headers: {
@@ -41,7 +41,7 @@ const Inbox = () => {
             console.log(error);
         }
     }
-    const { data: emailsData, error: fetchError, refetch: refetchEmails } = useFetch('https://react-auth-a54ec-default-rtdb.firebaseio.com/Emails.json');
+    const { data: emailsData, error: fetchError, refetch: refetchEmails } = useFetch('https://mailbox00-ae4e6-default-rtdb.firebaseio.com/Emails.json');
 
     useEffect(() => {
         if (emailsData) {
@@ -70,13 +70,14 @@ const Inbox = () => {
     const handleDelete = async (event, item) => {
         event.stopPropagation();
         try {
-            const res = await fetch(`https://react-auth-a54ec-default-rtdb.firebaseio.com/Emails/${item.id}.json`, {
+            const res = await fetch(`https://mailbox00-ae4e6-default-rtdb.firebaseio.com/Emails/${item.id}.json`, {
                 method: "DELETE",
             })
             if (!res.ok) {
                 throw new Error("unable to delete")
             }
             dispatch(listActions.deleteItem(item));
+            dispatch(listActions.markAsRead(item));
         } catch (error) {
             console.log(error);
         }
